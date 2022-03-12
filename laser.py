@@ -3,6 +3,8 @@ from vector import Vector
 from pygame.sprite import Sprite, Group
 from copy import copy
 from random import randint
+
+
 # from alien import Alien
 # from stats import Stats
 
@@ -15,11 +17,17 @@ class Lasers:
         self.ufo = game.ufo
         self.lasers = Group()
 
-    def add(self, laser): self.lasers.add(laser)
-    def empty(self): self.lasers.empty()
-    def fire(self): 
-      new_laser = Laser(self.game)
-      self.lasers.add(new_laser)
+    def add(self, laser):
+        self.lasers.add(laser)
+
+    def empty(self):
+        self.lasers.empty()
+
+    def fire(self):
+        new_laser = Laser(self.game)
+        self.lasers.add(new_laser)
+        bulletSound = pg.mixer.Sound('Sounds/shoot.wav')
+        bulletSound.play()
 
     def update(self):
         for laser in self.lasers.copy():
@@ -27,21 +35,21 @@ class Lasers:
 
         collisions_fleet = pg.sprite.groupcollide(self.alien_fleet.fleet, self.lasers, False, True)
         for alien in collisions_fleet:
-          if not alien.dying:
-            alien.hit()
-            deathSound = pg.mixer.Sound('Sounds/invaderkilled.wav')
-            deathSound.play()
+            if not alien.dying:
+                alien.hit()
+                deathSound = pg.mixer.Sound('Sounds/invaderkilled.wav')
+                deathSound.play()
         collisions_ufo = pg.sprite.groupcollide(self.ufo.fleet, self.lasers, False, True)
         for ufo in collisions_ufo:
-          if not ufo.dying:
-             ufo.ufo_hit()
-             deathSound = pg.mixer.Sound('Sounds/invaderkilled.wav')
-             deathSound.play()
+            if not ufo.dying:
+                ufo.ufo_hit()
+                deathSound = pg.mixer.Sound('Sounds/invaderkilled.wav')
+                deathSound.play()
 
-        if self.alien_fleet.length() == 0:  
+        if self.alien_fleet.length() == 0:
             self.stats.level_up()
             self.game.restart()
-            
+
         for laser in self.lasers:
             laser.update()
 

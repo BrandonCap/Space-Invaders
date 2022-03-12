@@ -16,6 +16,7 @@ dir_keys = {pg.K_LEFT: LEFT, pg.K_a: LEFT,
             pg.K_UP: UP, pg.K_w: UP,
             pg.K_DOWN: DOWN, pg.K_s: DOWN}
 
+
 def check_events(game):
     ship = game.ship
 
@@ -27,13 +28,12 @@ def check_events(game):
                 v = dirs[dir_keys[e.key]]
                 ship.inc_add(v)
             elif e.key == pg.K_SPACE:
-              game.ship.toggle_firing()
-              bulletSound = pg.mixer.Sound('Sounds/shoot.wav')
-              bulletSound.play()
+                game.ship.toggle_firing()
+                # bulletSound = pg.mixer.Sound('Sounds/shoot.wav')
+                # bulletSound.play()
         elif e.type == pg.KEYUP:
             if e.key in dir_keys:
                 v = dirs[dir_keys[e.key]]
                 ship.inc_add(-v)
             elif e.key == pg.K_SPACE:
-              game.ship.toggle_firing()
-
+                game.ship.toggle_firing()

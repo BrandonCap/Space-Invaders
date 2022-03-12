@@ -131,7 +131,7 @@ class UFO:
 
         for row in range(n_rows):
             for col in range(n_cols):
-                    self.create_alien(row=row, col=col, alien_type=UFO.ufo_imgs, point_value=400)
+                    self.create_alien(row=row, col=col, alien_type=UFO.ufo_imgs, point_value=750)
 
 
     def set_ship(self, ship):
